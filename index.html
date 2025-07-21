@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>DR Soluciones IT</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #007bff; /* Azul vibrante */
+            --secondary-color: #6c757d; /* Gris para texto secundario */
+            --accent-color: #28a745; /* Verde para acentos/éxito */
+            --background-light: #f8f9fa; /* Fondo muy claro */
+            --background-dark: #212529; /* Fondo oscuro para contraste */
+            --card-background: #ffffff;
+            --text-color-dark: #343a40; /* Texto oscuro principal */
+            --text-color-light: #e9ecef; /* Texto claro principal */
+            --border-color: #dee2e6;
+            --shadow-light: 0 4px 15px rgba(0, 0, 0, 0.08);
+            --shadow-hover: 0 8px 25px rgba(0, 0, 0, 0.15);
+
+            /* Nuevas variables para el banner de beneficios */
+            --gradient-start: #6a11cb; /* Morado suave */
+            --gradient-end: #2575fc;   /* Azul eléctrico */
+            --benefit-card-bg: rgba(255, 255, 255, 0.1); /* Blanco translúcido */
+            --benefit-card-border: rgba(255, 255, 255, 0.2);
+            --icon-circle-bg: rgba(255, 255, 255, 0.2);
+        }
+
+        /* Base Reset & Typography */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--background-light);
+            color: var(--text-color-dark);
+            line-height: 1.6;
+            scroll-behavior: smooth;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Utility Classes */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            /* Este .container es general para las secciones, no debe ser flex */
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        /* Header */
+        header {
+            background: var(--background-dark);
+            color: var(--text-color-light);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: var(--shadow-light);
+        }
+
+        /* *** CONTENEDOR ESPECÍFICO PARA EL HEADER *** */
+        .header-content-wrapper {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex; /* Convierte este contenedor en flex */
+            justify-content: space-between; /* Empuja el grupo izquierdo y la navegación a los extremos */
+            align-items: center; /* Alinea verticalmente al centro */
+            flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
+        }
+
+        /* Ajustes para el logo y el título en el header */
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem; /* Espacio entre el logo y el título */
+        }
+
+        .header-logo {
+            height: 50px; /* Altura del logo, ajusta si es necesario */
+            width: auto; /* Ancho automático para mantener la proporción */
+        }
+
+        header h1 {
+            font-weight: 700;
+            letter-spacing: 0.5px;
+            font-size: 1.8rem;
+            margin: 0; /* Elimina el margen por defecto del h1 */
+        }
+        
+        nav {
+            display: flex; /* Asegura que los enlaces de nav se comporten como flex items */
+            gap: 2rem; /* Espacio entre los elementos del menú */
+        }
+
+        nav a {
+            color: var(--text-color-light);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease, transform 0.2s ease;
+            position: relative;
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            width: 0%;
+            height: 2px;
+            background: var(--primary-color);
+            left: 0;
+            bottom: -5px;
+            transition: width 0.3s ease-out;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: var(--primary-color);
+            transform: translateY(-2px);
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.8)), url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1600&q=80') no-repeat center center/cover;
+            height: 80vh; /* Aumenta la altura para impacto */
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--text-color-light);
+            text-align: center;
+            position: relative;
+        }
+
+        .hero-content {
+            max-width: 800px;
+            z-index: 1;
+            padding: 2rem;
+        }
+
+        .hero-content h2 {
+            font-size: 3.5rem; /* Más grande */
+            margin-bottom: 1.5rem;
+            line-height: 1.2;
+            font-weight: 700;
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2.5rem;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+
+        .btn-primary {
+            background: var(--primary-color);
+            color: white;
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 50px; /* Más redondo */
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+            font-size: 1.1rem;
+            box-shadow: 0 5px 15px rgba(0, 123, 255, 0.3);
+            text-decoration: none; /* Asegura que no tenga subrayado */
+            display: inline-block; /* Para que padding y transform funcionen bien */
+        }
+
+        .btn-primary:hover {
+            background: #0056b3; /* Un tono más oscuro */
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 123, 255, 0.4);
+        }
+
+        /* Main Content */
+        main {
+            padding-top: 0; /* Elimina el padding superior para que el banner de beneficios se pegue */
+            padding-bottom: 0; /* Ajustado a 0 para que todas las secciones se peguen */
+        }
+
+        section {
+            margin-bottom: 0; /* CAMBIO CLAVE: Elimina el margen inferior de todas las secciones */
+        }
+
+        section h2 {
+            font-size: 2.8rem;
+            margin-bottom: 2.5rem;
+            color: var(--primary-color);
+            font-weight: 700;
+            text-align: center;
+            position: relative;
+            padding-top: 4rem; /* Añade padding superior para separar el título de la sección anterior */
+        }
+
+        section h2::after {
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 4px;
+            background: var(--accent-color);
+            left: 50%;
+            bottom: -10px;
+            transform: translateX(-50%);
+            border-radius: 2px;
+        }
+
+        /* --- Estilo del Banner de Beneficios --- */
+        .banner-beneficios {
+            background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+            color: var(--text-color-light);
+            padding: 4rem 0; /* Padding vertical */
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2); /* Sombra más pronunciada */
+            position: relative;
+            overflow: hidden; /* Para ocultar cualquier desborde de efectos */
+        }
+
+        .banner-beneficios::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(255,255,255,0.05) 0%, transparent 70%);
+            animation: rotateBackground 20s linear infinite;
+            opacity: 0.5;
+            z-index: 0;
+        }
+
+        @keyframes rotateBackground {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .benefits-grid-container {
+            max-width: 1200px; /* Limita el ancho del contenido */
+            margin: 0 auto; /* Centra el contenido */
+            padding: 0 1.5rem; /* Reducido el padding horizontal para más espacio */
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem; /* Reducido el espacio entre las tarjetas */
+            position: relative;
+            z-index: 1;
+        }
+
+        .beneficio {
+            background: var(--benefit-card-bg); /* Fondo translúcido */
+            backdrop-filter: blur(8px); /* Efecto de cristal esmerilado */
+            border: 1px solid var(--benefit-card-border);
+            border-radius: 15px; /* Bordes más suaves */
+            padding: 1.5rem; /* Reducido el padding interno */
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .beneficio::after { /* Efecto de borde al hover */
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 15px;
+            border: 2px solid transparent;
+            background: linear-gradient(45deg, var(--accent-color), var(--primary-color)) border-box;
+            -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            z-index: 2; /* Para que esté sobre el contenido */
+        }
+
+        .beneficio:hover {
+            transform: translateY(-12px) scale(1.03); /* Efecto de elevación y ligera expansión */
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.3); /* Sombra más intensa */
+        }
+        .beneficio:hover::after {
+            opacity: 1;
+        }
+
+        .icon-circle {
+            background: var(--icon-circle-bg); /* Círculo detrás del ícono */
+            width: 70px; /* Círculo un poco más pequeño */
+            height: 70px; /* Círculo un poco más pequeño */
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1rem; /* Margen inferior reducido */
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: background 0.3s ease;
+        }
+
+        .beneficio:hover .icon-circle {
+            background: var(--primary-color); /* El círculo se ilumina al hover */
+        }
+
+        .icono {
+            font-size: 2.8rem; /* Íconos un poco más pequeños */
+            line-height: 1;
+            color: var(--text-color-light); /* Color del emoji dentro del círculo */
+            transition: transform 0.3s ease;
+        }
+        .beneficio:hover .icono {
+            transform: rotate(5deg) scale(1.1); /* Ligera rotación y expansión del ícono */
+        }
+
+        .beneficio h3 {
+            font-weight: 600;
+            margin-bottom: 0.7rem; /* Margen inferior reducido */
+            font-size: 1.3rem; /* Título un poco más pequeño */
+            color: var(--text-color-light); /* Asegura que el título sea blanco */
+        }
+
+        .beneficio p {
+            font-weight: 300;
+            font-size: 0.9rem; /* Párrafo un poco más pequeño */
+            opacity: 0.9;
+            color: var(--text-color-light); /* Asegura que el párrafo sea blanco */
+        }
+
+
+        /* Services & Planes (Cards) */
+        .services, .planes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            padding-bottom: 4rem; /* Añade padding al final de las secciones para separarlas de los bordes del container */
+            padding-top: 2rem; /* Añade padding superior para separar las tarjetas del título */
+        }
+
+        .card {
+            background: var(--card-background);
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: var(--shadow-light);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 180px; /* Asegura un tamaño mínimo */
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: var(--shadow-hover);
+        }
+
+        .card h3 {
+            color: var(--primary-color);
+            margin-bottom: 0.8rem;
+            font-size: 1.7rem;
+            font-weight: 600;
+        }
+
+        .card p {
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card ul {
+            list-style: none; /* Elimina viñetas por defecto */
+            padding-left: 0;
+            margin-top: 1rem;
+        }
+
+        .card ul li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+
+        .card ul li::before {
+            content: '✅'; /* Ícono moderno */
+            position: absolute;
+            left: 0;
+            color: var(--accent-color);
+            font-size: 0.9em;
+            line-height: 1;
+        }
+
+        /* --- Sección de Contacto --- */
+        #contacto {
+            background: var(--background-dark); /* Fondo oscuro para contraste */
+            color: var(--text-color-light);
+            padding: 4rem 0; /* Más padding vertical */
+            text-align: center; /* Alinea el título y texto general */
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.1); /* Sombra hacia arriba */
+        }
+
+        #contacto h2 {
+            color: var(--primary-color); /* Título con color primario */
+            margin-bottom: 2rem;
+            text-align: center; /* Asegura que el título esté centrado */
+            padding-top: 0; /* Ya tiene padding del section global */
+        }
+
+        .contact-content-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 3rem;
+            align-items: center;
+        }
+
+        .whatsapp-contact-col {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end; /* Alinea el contenido de WhatsApp a la derecha */
+            text-align: right; /* Alinea el texto a la derecha */
+            padding-right: 2rem; /* Espacio antes del mapa */
+        }
+
+        .map-col {
+            display: flex;
+            justify-content: flex-start; /* Alinea el mapa a la izquierda de su columna */
+        }
+
+        .whatsapp-contact p {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            font-weight: 300;
+            opacity: 0.9;
+            line-height: 1.2;
+        }
+
+        .whatsapp-number {
+            display: flex; /* Para alinear el ícono con el texto */
+            align-items: center;
+            gap: 0.8rem; /* Espacio entre el ícono y el número */
+            font-size: 2.2rem; /* Número de WhatsApp más grande */
+            font-weight: 700;
+            color: #25d366; /* Verde de WhatsApp */
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .whatsapp-number:hover {
+            color: #1da851; /* Un verde un poco más oscuro al pasar el ratón */
+        }
+
+        .phone-icon {
+            font-size: 2.2rem; /* Tamaño del ícono de teléfono */
+            color: white; /* Color blanco para el ícono */
+            display: inline-block;
+            animation: ring 2s infinite ease-in-out; /* Animación para el teléfono */
+            transform-origin: center;
+        }
+
+        @keyframes ring {
+            0% { transform: rotate(0deg); }
+            10% { transform: rotate(10deg); }
+            20% { transform: rotate(-10deg); }
+            30% { transform: rotate(10deg); }
+            40% { transform: rotate(-10deg); }
+            50% { transform: rotate(0deg); }
+            100% { transform: rotate(0deg); }
+        }
+
+
+        .map-container {
+            width: 100%;
+            max-width: 550px; /* Ajusta el ancho máximo del mapa, puede ser más pequeño para que quepa */
+            height: 350px; /* Altura del mapa */
+            border-radius: 12px;
+            overflow: hidden; /* Asegura que el iframe respete el border-radius */
+            box-shadow: var(--shadow-hover); /* Sombra para el mapa */
+            border: 2px solid var(--primary-color); /* Borde sutil */
+        }
+
+        .map-container iframe {
+            width: 100%;
+            height: 100%;
+            border: 0;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--background-light); /* CAMBIO: Fondo blanco */
+            color: var(--text-color-dark); /* CAMBIO: Letras negras */
+            text-align: center;
+            padding: 3rem 1rem;
+            margin-top: 0; /* Asegura que el footer esté pegado a la sección de contacto */
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(0,0,0,0.1); /* Borde superior más sutil para el fondo blanco */
+        }
+
+        footer p {
+            margin-bottom: 0.5rem;
+            opacity: 0.9; /* Un poco más de opacidad para el texto negro */
+        }
+
+        /* WhatsApp Button - ELIMINADO EN HTML, solo por si acaso */
+        .whatsapp {
+            display: none; /* Asegura que el botón flotante no se muestre */
+        }
+
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .hero-content h2 {
+                font-size: 3rem;
+            }
+            .hero-content p {
+                font-size: 1.1rem;
+            }
+            .benefits-grid-container {
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+            }
+            .beneficio {
+                padding: 1.2rem;
+            }
+            .icon-circle {
+                width: 60px;
+                height: 60px;
+                margin-bottom: 0.8rem;
+            }
+            .icono {
+                font-size: 2.4rem;
+            }
+            .beneficio h3 {
+                font-size: 1.2rem;
+            }
+            .beneficio p {
+                font-size: 0.85rem;
+            }
+
+            /* Header Responsive - Se apila en móviles y se centra */
+            .header-content-wrapper {
+                flex-direction: column; /* Apila el logo/título y la navegación */
+                padding: 1rem; /* Ajusta el padding para móviles */
+            }
+            .header-left {
+                width: 100%; /* Ocupa todo el ancho disponible */
+                justify-content: center; /* Centra el logo y el título en la línea */
+                margin-bottom: 1rem; /* Espacio antes de la navegación */
+            }
+            nav {
+                width: 100%; /* Ocupa todo el ancho disponible */
+                justify-content: center; /* Centra los elementos de navegación */
+                gap: 1.5rem; /* Ajusta el espacio entre enlaces */
+            }
+
+            /* Contacto Responsive */
+            #contacto {
+                padding: 3rem 0;
+            }
+            .contact-content-grid {
+                grid-template-columns: 1fr; /* Apila las columnas en pantallas más pequeñas */
+                gap: 2rem;
+            }
+            .whatsapp-contact-col {
+                align-items: center; /* Centra el contenido de WhatsApp */
+                text-align: center; /* Centra el texto de WhatsApp */
+                padding-right: 0; /* Elimina el padding derecho */
+            }
+            .map-col {
+                justify-content: center; /* Centra el mapa */
+            }
+            .whatsapp-number {
+                font-size: 1.8rem;
+            }
+            .phone-icon {
+                font-size: 1.8rem;
+            }
+            .map-container {
+                height: 300px;
+            }
+        }
+
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 1.6rem;
+            }
+            .header-logo {
+                height: 40px;
+            }
+            nav a {
+                margin: 0; /* Asegura que no haya márgenes inesperados */
+                font-size: 0.95rem;
+            }
+            .hero {
+                height: 60vh;
+            }
+            .hero-content h2 {
+                font-size: 2.5rem;
+            }
+            .hero-content p {
+                font-size: 1rem;
+            }
+            .btn-primary {
+                padding: 0.8rem 2rem;
+                font-size: 1rem;
+            }
+            section h2 {
+                font-size: 2.2rem;
+            }
+            .banner-beneficios {
+                padding: 3rem 0;
+            }
+            .benefits-grid-container {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            .services, .planes {
+                grid-template-columns: 1fr;
+            }
+            .card {
+                padding: 1.5rem;
+            }
+            #contacto {
+                padding: 2rem 0;
+            }
+            .whatsapp-number {
+                font-size: 1.6rem;
+            }
+            .phone-icon {
+                font-size: 1.6rem;
+            }
+            .map-container {
+                height: 250px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 1rem;
+            }
+            header h1 {
+                font-size: 1.4rem;
+            }
+            .header-logo {
+                height: 35px;
+            }
+            .hero-content h2 {
+                font-size: 2rem;
+            }
+            .hero-content p {
+                font-size: 0.9rem;
+            }
+            section h2 {
+                font-size: 1.8rem;
+            }
+            .beneficio {
+                padding: 1.2rem;
+            }
+            .icon-circle {
+                width: 60px;
+                height: 60px;
+                margin-bottom: 1rem;
+            }
+            .icono {
+                font-size: 2.4rem;
+            }
+            .beneficio h3 {
+                font-size: 1.1rem;
+            }
+            .beneficio p {
+                font-size: 0.85rem;
+            }
+
+            /* Contacto Responsive Móvil */
+            .contact-info-wrapper {
+                padding: 0 1rem;
+            }
+            .whatsapp-number {
+                font-size: 1.4rem;
+            }
+            .phone-icon {
+                font-size: 1.4rem;
+            }
+            .map-container {
+                height: 200px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="header-content-wrapper">
+        <div class="header-left">
+            <img src="imagenes/tu_logo.png" alt="Logo de DR Soluciones IT" class="header-logo">
+            <h1>DR Soluciones IT</h1>
+        </div>
+        <nav>
+            <a href="#servicios">Servicios</a>
+            <a href="#planes">Pólizas</a>
+            <a href="#contacto">Contacto</a>
+        </nav>
+    </div>
+</header>
+
+<section class="hero">
+    <div class="hero-content">
+        <h2>Tu mundo, más eficiente con tecnología</h2>
+        <p>Seas una empresa, pyme o profesional independiente, te ayudamos a tomar decisiones inteligentes que potencien tu rendimiento y aseguren la continuidad de tu operación.</p>
+        <a href="#contacto" class="btn-primary">Contáctanos</a>
+    </div>
+</section>
+
+<main>
+    <section class="banner-beneficios">
+        <div class="benefits-grid-container">
+            <div class="beneficio">
+                <div class="icon-circle">
+                    <div class="icono">⭐</div>
+                </div>
+                <h3>Excelencia de Servicio</h3>
+                <p>Ofrecemos garantía de servicio y soporte premium sin compromisos.</p>
+            </div>
+            <div class="beneficio">
+                <div class="icon-circle">
+                    <div class="icono">🤝</div>
+                </div>
+                <h3>Confianza con nosotros</h3>
+                <p>Ofrecemos lo que nadie: honestidad, seguridad y calidad.</p>
+            </div>
+            <div class="beneficio">
+                <div class="icon-circle">
+                    <div class="icono">💡</div>
+                </div>
+                <h3>Diagnóstico sin costo</h3>
+                <p>Nuestros clientes prueban el servicio antes de pagar.</p>
+            </div>
+            <div class="beneficio">
+                <div class="icon-circle">
+                    <div class="icono">🚀</div>
+                </div>
+                <h3>Servicio a Domicilio</h3>
+                <p>Recogemos tu equipo en tu domicilio, negocio o empresa.</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="servicios">
+        <div class="container">
+            <h2>Nuestros Servicios</h2>
+            <div class="services">
+                <div class="card"><h3>Soporte y Mantenimiento</h3><p>Correctivo y preventivo en computadoras, laptops y más.</p></div>
+                <div class="card"><h3>Licenciamiento</h3><p>Instalación de software original: Windows, Office, Antivirus.</p></div>
+                <div class="card"><h3>Venta de Equipos</h3><p>Teclados, diademas, mouse, laptops y accesorios.</p></div>
+                <div class="card"><h3>Administración de Servidores</h3><p>Gestión y soporte remoto de servidores locales o en la nube.</p></div>
+                <div class="card"><h3>Correos Corporativos</h3><p>Implementación y soporte para emails profesionales.</p></div>
+                <div class="card"><h3>Soporte Remoto</h3><p>Resolvemos problemas técnicos a distancia en minutos.</p></div>
+                <div class="card"><h3>Instalación CCTV</h3><p>Instalación y configuración de cámaras de seguridad.</p></div>
+                <div class="card"><h3>Redes Sociales</h3><p>Administración y optimización de presencia digital.</p></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="planes">
+        <div class="container">
+            <h2>Pólizas Mensuales</h2>
+            <div class="planes">
+                <div class="card">
+                    <h3>Básico</h3>
+                    <p>Pequeñas empresas</p>
+                    <ul>
+                        <li>1 a 5 equipos</li>
+                        <li>Soporte remoto ilimitado</li>
+                        <li>1 visita mensual</li>
+                        <li>Soporte por evento incluido</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Estándar</h3>
+                    <p>Negocios en crecimiento</p>
+                    <ul>
+                        <li>6 a 15 equipos</li>
+                        <li>Remoto + visitas técnicas</li>
+                        <li>Asesoría en TI</li>
+                        <li>Soporte por evento incluido</li>
+                    </ul>
+                </div>
+                <div class="card">
+                    <h3>Empresarial</h3>
+                    <p>Infraestructura completa</p>
+                    <ul>
+                        <li>Servidores, redes y usuarios</li>
+                        <li>Monitoreo 24/7</li>
+                        <li>Atención prioritaria</li>
+                        <li>Soporte por evento incluido</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contacto">
+        <div class="container">
+            <h2>Contáctanos Directamente</h2>
+            <div class="contact-content-grid">
+                <div class="whatsapp-contact-col">
+                    <p>¡Envíanos un mensaje por WhatsApp!</p>
+                    <a href="https://wa.me/525584106418" target="_blank" class="whatsapp-number">
+                        <span class="phone-icon">📞</span> +52 5584106418
+                    </a>
+                    <p style="margin-top: 1rem; opacity: 0.8;">Nuestra base de operaciones está en la Ciudad de México.</p>
+                </div>
+                <div class="map-col">
+                    <div class="map-container">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d481727.1314256317!2d-99.47328817315545!3d19.391084425373123!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x85ce0026db097507%3A0x54061076265ee841!2sCiudad%20de%20M%C3%A9xico%2C%20CDMX!5e0!3m2!1ses!2smx!4v1753060021347!5m2!1ses!2smx" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                            allowfullscreen="" loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <div class="container">
+        <p>© 2025 DR Soluciones IT. Todos los derechos reservados.</p>
+    </div>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('fade-in-up');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('section, .card, .beneficio').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            observer.observe(el);
+        });
+    });
+
+    const style = document.createElement('style');
+    style.innerHTML = `
+        .fade-in-up {
+            opacity: 1 !important;
+            transform: translateY(0) !important;
+        }
+    `;
+    document.head.appendChild(style);
+</script>
+
+</body>
+</html>
